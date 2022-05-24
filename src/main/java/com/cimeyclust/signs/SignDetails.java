@@ -34,4 +34,34 @@ public class SignDetails {
     public int getPlayerCount() {
         return playerCount;
     }
+
+    public SignDetails setMinigameName(String minigameName) {
+        this.minigameName = minigameName;
+
+        return this;
+    }
+
+    public SignDetails setInteractCommand(String interactCommand) {
+        this.interactCommand = interactCommand;
+
+        return this;
+    }
+
+    public SignDetails setAdditionalInformation(String additionalInformation) {
+        this.additionalInformation = additionalInformation;
+
+        return this;
+    }
+
+    public SignDetails setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
+
+        return this;
+    }
+
+    public SignDetails setPlayerCount(int playerCount) {
+        this.playerCount = playerCount;
+
+        return this;
+    }
 }

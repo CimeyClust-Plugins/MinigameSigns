@@ -3,17 +3,16 @@ package com.cimeyclust.signs;
 import cn.nukkit.blockentity.BlockEntitySign;
 import cn.nukkit.plugin.Plugin;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Signs {
     private Plugin pluginInstance;
     private Map<BlockEntitySign, SignDetails> pluginSigns;
     public static List<Signs> signs;
 
-    public Signs(Plugin pluginInstance, Map<BlockEntitySign, SignDetails> signs) {
+    public Signs(Plugin pluginInstance) {
         this.pluginInstance = pluginInstance;
-        this.pluginSigns = signs;
+        this.pluginSigns = new LinkedHashMap<>();
 
         Signs.signs.add(this);
     }
@@ -21,6 +20,13 @@ public class Signs {
     public static Signs getSigns(Plugin pluginInstance) {
         for (Signs sign : Signs.signs)
             if (sign.getPluginInstance().getName().equals(pluginInstance.getName())) return sign;
+
+        return null;
+    }
+
+    public static Signs getSigns(BlockEntitySign blockSign) {
+        for (Signs sign : Signs.signs)
+            if (sign.getPluginSigns().keySet().contains(blockSign)) return sign;
 
         return null;
     }

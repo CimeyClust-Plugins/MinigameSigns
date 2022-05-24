@@ -62,24 +62,37 @@ public class ConfigManager {
 
 
         Signs signs = Signs.getSigns(pluginInstance);
-        if (signs == null) signs = new Signs(pluginInstance, new HashMap<>());
+        if (signs == null) signs = new Signs(pluginInstance);
 
         signs.getPluginSigns().put((BlockEntitySign) signLocation.getLevel().getBlockEntity(signLocation), signDetails);
     }
 
-    public void addPlugin(String pluginName) {
-        this.signs.set("signs." + pluginName, "");
+    public void addSign(String pluginName, int index, Location signLocation, String minigameName,
+                        String command, String additional, int maxPlayers) {
+        // Location
+        this.signs.set("signs." + pluginName + ".sign" + index + ".location.x", signLocation.getX());
+        this.signs.set("signs." + pluginName + ".sign" + index + ".location.y", signLocation.getY());
+        this.signs.set("signs." + pluginName + ".sign" + index + ".location.z", signLocation.getZ());
+        this.signs.set("signs." + pluginName + ".sign" + index + ".location.level", signLocation.getLevel().getName());
+
+        // Details
+        this.signs.set("signs." + pluginName + ".sign" + index + ".name", minigameName);
+        this.signs.set("signs." + pluginName + ".sign" + index + ".command", command);
+        this.signs.set("signs." + pluginName + ".sign" + index + ".text", additional);
+        this.signs.set("signs." + pluginName + ".sign" + index + ".max-players", maxPlayers);
+
         this.signs.save(this.signsFile);
     }
 
-    public void addSign(String pluginName, Location signLocation, int maxPlayers) {
-        // Location
-        this.signs.set("signs." + pluginName + "location.x", signLocation.getX());
-        this.signs.set("signs." + pluginName + "location.y", signLocation.getY());
-        this.signs.set("signs." + pluginName + "location.z", signLocation.getZ());
-        this.signs.set("signs." + pluginName + "location.level", signLocation.getLevel().getName());
+    public void updateSign(String pluginName, int index, String keyValue, Object updatedValue) {
+        this.signs.set("signs." + pluginName + ".sign" + index + "." + keyValue, updatedValue);
 
-        // 
+        this.signs.save(this.signsFile);
+    }
+
+    public void deleteSign(String pluginName, int index) {
+        this.signs.remove("signs." + pluginName + ".sign" + index);
+
         this.signs.save(this.signsFile);
     }
 }

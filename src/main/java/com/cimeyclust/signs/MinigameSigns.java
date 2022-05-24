@@ -2,6 +2,7 @@ package com.cimeyclust.signs;
 
 import cn.nukkit.blockentity.BlockEntitySign;
 import cn.nukkit.plugin.PluginBase;
+import com.cimeyclust.signs.listeners.SignInteractListener;
 import com.cimeyclust.signs.storage.yaml.ConfigManager;
 
 import java.util.ArrayList;
@@ -17,7 +18,16 @@ public class MinigameSigns extends PluginBase {
         Signs.signs = new ArrayList<>();
         this.configManager = new ConfigManager(this);
 
-        this.configManager.loadSigns();
+        // Register listener
+        this.getServer().getPluginManager().registerEvents(new SignInteractListener(this), this);
+
+        this.getServer().getScheduler().scheduleDelayedTask(this, new Runnable() {
+            @Override
+            public void run() {
+                getLogger().info("§aLoading minigame signs...");
+                configManager.loadSigns();
+            }
+        }, 2);
 
         getLogger().info("§aMinigameSignsAPI has been enabled successfully!");
     }
@@ -30,5 +40,9 @@ public class MinigameSigns extends PluginBase {
     public static synchronized MinigameSigns getInstance( ) {
         if (plugin == null) plugin = new MinigameSigns();
         return plugin;
+    }
+
+    public ConfigManager getConfigManager() {
+        return configManager;
     }
 }
