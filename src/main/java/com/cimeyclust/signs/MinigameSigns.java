@@ -15,6 +15,7 @@ public class MinigameSigns extends PluginBase {
 
     @Override
     public void onEnable() {
+        plugin = this;
         Signs.signs = new ArrayList<>();
         this.configManager = new ConfigManager(this);
 
