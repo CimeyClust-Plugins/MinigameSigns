@@ -1,0 +1,7 @@
+name: MinigameSignsAPI
+main: com.cimeyclust.signs.MinigameSigns
+version: 0.3
+api: ["1.0.7"]
+description: NukkitX API Extension for creating custom signs for minigames
+author: Verox001
+website: https://cimeyclust.com/
