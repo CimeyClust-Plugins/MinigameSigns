@@ -47,6 +47,9 @@ public class SignInteractListener implements Listener {
         Signs signs = Signs.getSigns(sign);
         if (signs == null) return;
 
+        if (event.getPlayer().isCreative() && event.getAction().equals(PlayerInteractEvent.Action.LEFT_CLICK_BLOCK))
+            return;
+
         this.minigameSigns.getServer().dispatchCommand(
                 event.getPlayer(),
                 signs.getPluginSigns().get(sign).getInteractCommand()
