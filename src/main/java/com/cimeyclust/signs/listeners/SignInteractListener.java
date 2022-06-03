@@ -20,7 +20,13 @@ public class SignInteractListener implements Listener {
 
     @EventHandler
     public void onBreakSign(BlockBreakEvent event) {
-        BlockEntitySign sign = (BlockEntitySign) event.getBlock().getLevel().getBlockEntity(event.getBlock().getLocation());
+        BlockEntitySign sign = null;
+
+        try {
+            sign = (BlockEntitySign) event.getBlock().getLevel().getBlockEntity(event.getBlock().getLocation());
+        } catch (ClassCastException e) {
+            return;
+        }
 
         if (sign == null) return;
 
@@ -40,7 +46,13 @@ public class SignInteractListener implements Listener {
 
     @EventHandler
     public void onSignInteract(PlayerInteractEvent event) {
-        BlockEntitySign sign = (BlockEntitySign) event.getBlock().getLevel().getBlockEntity(event.getBlock().getLocation());
+        BlockEntitySign sign = null;
+
+        try {
+            sign = (BlockEntitySign) event.getBlock().getLevel().getBlockEntity(event.getBlock().getLocation());
+        } catch (ClassCastException e) {
+            return;
+        }
 
         if (sign == null) return;
 
